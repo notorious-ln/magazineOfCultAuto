@@ -79,11 +79,10 @@
 
     <Button
         android:id="@+id/buttonRegistration"
-        style="@style/Widget.Material3.Button.Icon"
+        style="@style/CustomButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
-        android:backgroundTint="@color/deepBlue"
         android:text="@string/buttonRegistration"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -93,6 +92,7 @@
 
     <TextView
         android:id="@+id/textTomenu"
+        style="@style/CustomButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="61dp"

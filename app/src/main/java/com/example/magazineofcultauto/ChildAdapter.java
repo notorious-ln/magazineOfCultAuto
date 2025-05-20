@@ -16,9 +16,15 @@ import java.util.List;
 
 public class ChildAdapter extends RecyclerView.Adapter<ChildAdapter.ChildViewHolder> {
     private List<ChildItem> childItems;
+    private OnChildClickListener listener;
+    public interface OnChildClickListener {
+        void onChildClick(ChildItem childItem);
+    }
 
-    public ChildAdapter(List<ChildItem> childItems) {
-        this.childItems = childItems != null ? childItems : new ArrayList<>();;
+    public ChildAdapter(List<ChildItem> childItems, OnChildClickListener listener) {
+        this.childItems = childItems != null ? childItems : new ArrayList<>();
+        this.listener = listener;
+        android.util.Log.d("ChildAdapter", "Listener initialized: " + (listener != null));
     }
 
     @NonNull
@@ -31,31 +37,49 @@ public class ChildAdapter extends RecyclerView.Adapter<ChildAdapter.ChildViewHol
     @Override
     public void onBindViewHolder(@NonNull ChildViewHolder holder, int position) {
         ChildItem child = childItems.get(position);
+        android.util.Log.d("ChildAdapter", "Binding item: " + child.getTitle());
         holder.textView.setText(child.getTitle());
+        GrandchildAdapter grandchildAdapter = new GrandchildAdapter(child.getGrandchildItems());
+        holder.recyclerGrandchildren.setAdapter(grandchildAdapter);
+        holder.recyclerGrandchildren.setLayoutManager(
+                new LinearLayoutManager(holder.itemView.getContext()));
         if (child.isExpanded()) {
             expand(holder.recyclerGrandchildren);
         } else {
             collapse(holder.recyclerGrandchildren);
         }
-
-
-
-        // Настройка вложенного RecyclerView для фото
-        // Настройка RecyclerView для GrandchildItems
-        GrandchildAdapter grandchildAdapter = new GrandchildAdapter(child.getGrandchildItems());
-        holder.recyclerGrandchildren.setAdapter(grandchildAdapter);
-        holder.recyclerGrandchildren.setLayoutManager(
-                new LinearLayoutManager(holder.itemView.getContext()));
-
-        // Управление видимостью
         holder.recyclerGrandchildren.setVisibility(child.isExpanded() ? View.VISIBLE : View.GONE);
 
-
-        // Клик по элементу - переключение раскрытия
-        holder.itemView.setOnClickListener(v -> {
+        holder.textView.setOnClickListener(v -> {
             child.setExpanded(!child.isExpanded());
             notifyItemChanged(position);
         });
+        holder.textView.setOnClickListener(v -> {
+            android.util.Log.d("ChildAdapter", "TextView clicked: " + child.getTitle());
+            android.widget.Toast.makeText(holder.itemView.getContext(), "Clicked: " + child.getTitle(), android.widget.Toast.LENGTH_SHORT).show();
+            if (listener != null) {
+                listener.onChildClick(child);
+            }
+        });
+
+
+
+
+       /* holder.itemView.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onChildClick(child);
+            }
+        });
+        */
+
+        // Клик для раскрытия/скрытия (например, на текст или отдельный элемент)
+
+
+
+
+
+
+
 
         // Анимация можно добавить здесь, если нужно
     }

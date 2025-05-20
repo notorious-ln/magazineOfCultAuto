@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Цвет для выбранного элемента -->
+    <item android:color="#8B4513" android:state_checked="true" /> <!-- Коричневый, не слишком темный (SaddleBrown) -->
+    <!-- Цвет для невыбранного элемента -->
+    <item android:color="#757575" android:state_checked="false" /> <!-- Серый для невыбранных элементов -->
+</selector>

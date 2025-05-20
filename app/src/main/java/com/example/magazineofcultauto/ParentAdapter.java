@@ -16,9 +16,11 @@ import java.util.List;
 
 public class ParentAdapter extends RecyclerView.Adapter<ParentAdapter.ParentViewHolder> {
     private List<ParentItem> parentItems;
+    private ChildAdapter.OnChildClickListener childClickListener; // Добавляем поле для слушателя
 
-    public ParentAdapter(List<ParentItem> parentItems) {
-        this.parentItems = parentItems != null ? parentItems : new ArrayList<>();;
+    public ParentAdapter(List<ParentItem> parentItems, ChildAdapter.OnChildClickListener childClickListener) {
+        this.parentItems = parentItems != null ? parentItems : new ArrayList<>();
+        this.childClickListener = childClickListener; // Сохраняем слушатель
     }
 
     @NonNull
@@ -33,14 +35,13 @@ public class ParentAdapter extends RecyclerView.Adapter<ParentAdapter.ParentView
         ParentItem item = parentItems.get(position);
         holder.textView.setText(item.getTitle());
         if (item.isExpanded()) {
-            expand(holder.recyclerChild);  // функция плавного открытия
+            expand(holder.recyclerChild);
         } else {
-            collapse(holder.recyclerChild); // функция плавного скрытия
+            collapse(holder.recyclerChild);
         }
 
-
         // Настройка вложенного RecyclerView второго уровня
-        ChildAdapter childAdapter = new ChildAdapter(item.getChildItems());
+        ChildAdapter childAdapter = new ChildAdapter(item.getChildItems(), childClickListener); // Передаем слушатель
         holder.recyclerChild.setAdapter(childAdapter);
         holder.recyclerChild.setLayoutManager(new LinearLayoutManager(holder.itemView.getContext()));
 
@@ -52,8 +53,6 @@ public class ParentAdapter extends RecyclerView.Adapter<ParentAdapter.ParentView
             item.setExpanded(!item.isExpanded());
             notifyItemChanged(position);
         });
-
-        // Добавьте анимацию, если нужно
     }
 
     @Override
@@ -71,6 +70,7 @@ public class ParentAdapter extends RecyclerView.Adapter<ParentAdapter.ParentView
             recyclerChild = itemView.findViewById(R.id.recyclerChild);
         }
     }
+
     private void expand(final View view) {
         view.measure(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         final int targetHeight = view.getMeasuredHeight();
@@ -117,5 +117,4 @@ public class ParentAdapter extends RecyclerView.Adapter<ParentAdapter.ParentView
         animation.setDuration(300);
         view.startAnimation(animation);
     }
-
 }

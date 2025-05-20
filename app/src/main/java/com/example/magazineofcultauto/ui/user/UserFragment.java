@@ -1,4 +1,4 @@
-package com.example.magazineofcultauto.ui.notifications;
+package com.example.magazineofcultauto.ui.user;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,21 +15,21 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.magazineofcultauto.LoginActivity;
 import com.example.magazineofcultauto.R;
 import com.example.magazineofcultauto.activityRegistration;
-import com.example.magazineofcultauto.databinding.FragmentNotificationsBinding;
+import com.example.magazineofcultauto.databinding.FragmentUserBinding;
 
-public class NotificationsFragment extends Fragment {
+public class UserFragment extends Fragment {
 
-    private FragmentNotificationsBinding binding;
+    private FragmentUserBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        NotificationsViewModel notificationsViewModel =
-                new ViewModelProvider(this).get(NotificationsViewModel.class);
+        UserViewModel userViewModel =
+                new ViewModelProvider(this).get(UserViewModel.class);
         Intent log = new Intent(getActivity(), LoginActivity.class);
         Intent regis = new Intent(getActivity(), activityRegistration.class);
 
 
-        binding = FragmentNotificationsBinding.inflate(inflater, container, false);
+        binding = FragmentUserBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         Button login = root.findViewById(R.id.log);
         Button reg = root.findViewById(R.id.reg);
@@ -46,8 +46,8 @@ public class NotificationsFragment extends Fragment {
             }
         });
 
-        final TextView textView = binding.textProfile;
-        notificationsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+
+
         return root;
     }
 

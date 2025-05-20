@@ -1,76 +1,76 @@
 package com.example.magazineofcultauto.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.magazineofcultauto.BMW_Activity;
+import com.example.magazineofcultauto.BMW_models;
+import com.example.magazineofcultauto.ChildAdapter;
 import com.example.magazineofcultauto.ChildItem;
-import com.example.magazineofcultauto.GrandchildItem;
 import com.example.magazineofcultauto.ParentAdapter;
 import com.example.magazineofcultauto.ParentItem;
-import com.example.magazineofcultauto.Photo;
+import com.example.magazineofcultauto.R;
 import com.example.magazineofcultauto.databinding.FragmentHomeBinding;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
-    private View rootView;
-
-
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         HomeViewModel homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
-
-        // 1. Сначала инициализируем binding
         binding = FragmentHomeBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
+        return binding.getRoot();
+    }
 
-        // 2. Теперь получаем RecyclerView через binding
-        RecyclerView recyclerView = binding.recyclerView;
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-        // 3. Заполняем данными
+        // Подготовка данных
         List<ParentItem> data = new ArrayList<>();
-
-        List<Photo> photos1 = Arrays.asList(
-                new Photo("https://example.com/photo1.jpg")
-
-        );
-        List<GrandchildItem> grandchildItems = Arrays.asList(
-                new GrandchildItem("Подраздел 1", photos1),
-                new GrandchildItem("Подраздел 2", new ArrayList<>())
+        List<ChildItem> childItems = Arrays.asList(
+                new ChildItem("BMW", new ArrayList<>()),
+                new ChildItem("Audi", new ArrayList<>())
         );
         List<ChildItem> childItems1 = Arrays.asList(
-                new ChildItem("Подэлемент 1", grandchildItems),
-                new ChildItem("Подэлемент 2", new ArrayList<>())
+                new ChildItem("Honda", new ArrayList<>()),
+                new ChildItem("Nissan", new ArrayList<>())
         );
+        ParentItem parentItem = new ParentItem("Немецкие машины", childItems);
+        ParentItem parentItem1 = new ParentItem("Японские машины", childItems1);
+        parentItem.setExpanded(true); // Раскрываем родительский элемент
+        data.add(new ParentItem("Немецкие машины", childItems));
+        data.add(new ParentItem("Японские машины", childItems1));
 
+        ChildAdapter.OnChildClickListener listener = childItem -> {
+            android.util.Log.d("HomeFragment", "Child clicked: " + childItem.getTitle());
+            if ("BMW".equals(childItem.getTitle())) {
+                android.util.Log.d("HomeFragment", "Navigating to BMW_Activity");
+                // Запускаем BMW_Activity с помощью Intent
+                Intent intent = new Intent(requireContext(), BMW_Activity.class);
+                startActivity(intent);
+            }
+        };
 
-
-        data.add(new ParentItem("Категория 1", childItems1));
-        data.add(new ParentItem("Категория 2", childItems1));
-
-        // 4. Настраиваем RecyclerView
-        ParentAdapter adapter = new ParentAdapter(data);
-        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext())); // Исправлено здесь
-        recyclerView.setAdapter(adapter);
-
-
-
-        return root;
+        // Настройка ParentAdapter
+        ParentAdapter adapter = new ParentAdapter(data, listener); // Передаем listener
+        binding.recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        binding.recyclerView.setAdapter(adapter);
     }
 
     @Override
@@ -78,5 +78,4 @@ public class HomeFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
-
 }

@@ -20,4 +20,6 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_homeact">homeact</string>
     <string name="title_activity_homeactivity">homeactivity</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

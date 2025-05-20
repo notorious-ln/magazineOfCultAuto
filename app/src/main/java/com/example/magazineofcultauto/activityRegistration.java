@@ -19,7 +19,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.magazineofcultauto.ui.DatabaseHelper;
 import com.example.magazineofcultauto.ui.home.HomeFragment;
-import com.example.magazineofcultauto.ui.notifications.NotificationsFragment;
+import com.example.magazineofcultauto.ui.user.UserFragment;
 
 public class activityRegistration extends AppCompatActivity {
     private DatabaseHelper databaseHelper;
@@ -37,10 +37,10 @@ public class activityRegistration extends AppCompatActivity {
         mail = findViewById(R.id.mail);
         createpassword = findViewById(R.id.password);
         buttonRegistration = findViewById(R.id.buttonRegistration);
-        Intent ToLog = new Intent(this, LoginActivity.class);
+        Intent acthome = new Intent(this, HomeActivity.class);
         String messageOfReg = "Вы успешно зарегистрировались";
         HomeFragment main = new HomeFragment();
-        NotificationsFragment  user = new NotificationsFragment();
+        UserFragment user = new UserFragment();
         @SuppressLint({"MissingInflatedId", "LocalSuppress"}) TextView mainMenu = findViewById(R.id.textTomenu);
         buttonRegistration.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,7 +59,7 @@ public class activityRegistration extends AppCompatActivity {
         mainMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setNewFragment(main);
+                startActivity(acthome);
             }
         });
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -74,7 +74,7 @@ public class activityRegistration extends AppCompatActivity {
     private void setNewFragment(Fragment fragment) {
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.textTomenu, fragment);
+        ft.replace(R.id.nav_host_fragment_activity_home, fragment);
         ft.addToBackStack(null);
         ft.commit();
     }

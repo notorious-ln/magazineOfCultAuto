@@ -40,12 +40,10 @@
 
     <Button
         android:id="@+id/buttonlogin"
-        style="@style/Theme.MaterialComponents.DayNight"
+        style="@style/CustomButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
-        android:layout_marginTop="28dp"
-        android:backgroundTint="@color/deepBlue"
+        android:layout_marginTop="36dp"
         android:text="@string/buttonLogin"
         app:layout_constraintEnd_toEndOf="@+id/enterPassword"
         app:layout_constraintStart_toStartOf="@+id/enterPassword"
@@ -53,32 +51,32 @@
 
         />
 
-    <Button
-        android:id="@+id/buttonRegistration"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:backgroundTint="@android:color/transparent"
-        android:onClick="StartActivityRegistration"
-        android:text="@string/notRegistrationYet"
-        android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonlogin" />
-
     <TextView
         android:id="@+id/textToMenu"
+        style="@style/CustomButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="49dp"
-        android:layout_marginBottom="82dp"
+        android:layout_marginBottom="40dp"
         android:text="Вернуться в главное меню"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/Text_reg"
+        style="@style/CustomButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="128dp"
+        android:layout_marginBottom="20dp"
+        android:text="Ещё не зарегистрировались? Нажмите для регистрации"
+        app:layout_constraintBottom_toTopOf="@+id/textToMenu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonRegistration" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonlogin"
+        app:layout_constraintVertical_bias="0.937" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

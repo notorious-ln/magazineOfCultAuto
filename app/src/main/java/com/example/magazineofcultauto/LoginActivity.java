@@ -1,5 +1,6 @@
 package com.example.magazineofcultauto;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -32,11 +33,12 @@ public class LoginActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login);
         databaseHelper = new DatabaseHelper(this);
-        Button registr = findViewById(R.id.buttonRegistration);
+        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) TextView reg = findViewById(R.id.Text_reg);
         enterLogin = findViewById(R.id.enterLogin);
         enterPassword = findViewById(R.id.enterPassword);
         buttonLogin = findViewById(R.id.buttonlogin);
         Intent acthome = new Intent(this, HomeActivity.class);
+        Intent registration = new Intent(this, activityRegistration.class);
         TextView toMenu = findViewById(R.id.textToMenu);
         HomeFragment home = new HomeFragment();
         buttonLogin.setOnClickListener(new View.OnClickListener() {
@@ -55,16 +57,17 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
-        registr.setOnClickListener(new View.OnClickListener() {
+        reg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                StartActivityRegistration();
+                startActivity(registration);
             }
         });
+
         toMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setNewFragment(home);
+                startActivity(acthome);
             }
         });
 
@@ -77,12 +80,9 @@ public class LoginActivity extends AppCompatActivity {
     private void setNewFragment(HomeFragment fragment) {
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.textToMenu, fragment) // Заменяем фрагмент
+                .replace(R.id.nav_host_fragment_activity_home, fragment) // Заменяем фрагмент
                 .addToBackStack(null) // Добавляем в стек возврата
                 .commit(); // Выполняем транзакцию
     }
-    private void StartActivityRegistration(){
-        Intent toReg = new Intent(this, activityRegistration.class);
-        startActivity(toReg);
-    }
+
 }
