@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -63,39 +64,41 @@ public class FavouriteFragment extends Fragment {
 
     }
     private void loadFavorites() {
-        Cursor cursor = dbHelper.getUserFavorites(currentUserId);
-        List<FavoriteItem> favorites = new ArrayList<>();
+        try {
+            Cursor cursor = dbHelper.getUserFavorites(currentUserId);
+            List<FavoriteItem> items = new ArrayList<>();
 
-        if (cursor != null) {
-            try {
-                // Получаем индексы колонок один раз
-                int idIndex = cursor.getColumnIndex(DatabaseHelper.COLUMN_CAR_ID);
-                int nameIndex = cursor.getColumnIndex(DatabaseHelper.COLUMN_CAR_NAME);
-                int imageIndex = cursor.getColumnIndex(DatabaseHelper.COLUMN_CAR_IMAGE);
-                int dataIndex = cursor.getColumnIndex(DatabaseHelper.COLUMN_CAR_DATA);
+            if (cursor != null) {
+                // Получаем индексы всех колонок
+                int idIndex = cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_ID);
+                int carIdIndex = cursor.getColumnIndex(DatabaseHelper.COLUMN_CAR_ID);
+                int carNameIndex = cursor.getColumnIndex(DatabaseHelper.COLUMN_CAR_NAME);
+                int carImageIndex = cursor.getColumnIndex(DatabaseHelper.COLUMN_CAR_IMAGE);
+                int carDataIndex = cursor.getColumnIndex(DatabaseHelper.COLUMN_CAR_DATA);
 
-                // Проверяем, что все индексы валидны
-                if (idIndex >= 0 && nameIndex >= 0 && imageIndex >= 0 && dataIndex >= 0) {
-                    while (cursor.moveToNext()) {
-                        String carId = cursor.getString(idIndex);
-                        String carName = cursor.getString(nameIndex);
-                        String carImage = cursor.getString(imageIndex);
-                        String carData = cursor.getString(dataIndex);
-
-                        favorites.add(new FavoriteItem(carId, carName, carImage, carData));
-                    }
-                } else {
-                    Log.e("FavouriteFragment", "One or more column indexes not found");
+                // Проверяем обязательные колонки
+                if (carIdIndex == -1 || carNameIndex == -1) {
+                    throw new IllegalStateException("Обязательные колонки не найдены");
                 }
-            } finally {
+
+                while (cursor.moveToNext()) {
+                    String carId = cursor.getString(carIdIndex);
+                    String carName = cursor.getString(carNameIndex);
+
+                    // Обработка необязательных колонок
+                    String carImage = carImageIndex != -1 ? cursor.getString(carImageIndex) : "";
+                    String carData = carDataIndex != -1 ? cursor.getString(carDataIndex) : "";
+
+                    items.add(new FavoriteItem(carId, carName, carImage, carData));
+                }
                 cursor.close();
             }
+            adapter.setFavorites(items);
+        } catch (Exception e) {
+            Log.e("FavouriteFragment", "Ошибка загрузки избранного", e);
+            Toast.makeText(getContext(), "Ошибка загрузки избранного", Toast.LENGTH_SHORT).show();
         }
-
-        adapter.setFavorites(favorites);
-        emptyText.setVisibility(favorites.isEmpty() ? View.VISIBLE : View.GONE);
     }
-
     private long getCurrentUserId() {
         // Реализуйте получение ID текущего пользователя из SharedPreferences
         SharedPreferences prefs = requireContext().getSharedPreferences("user_prefs", Context.MODE_PRIVATE);

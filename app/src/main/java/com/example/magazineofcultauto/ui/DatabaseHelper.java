@@ -9,14 +9,14 @@ import android.util.Log;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "user_database.db";
+    public static final String DATABASE_NAME = "user_database.db";
 
-    private static final int DATABASE_VERSION = 2; // Увеличьте версию!
-    private static final String TABLE_USERS = "users";
-    private static final String COLUMN_ID = "id";
-    private static final String COLUMN_USERNAME = "username";
-    private static final String COLUMN_EMAIL = "email";
-    private static final String COLUMN_PASSWORD = "password";
+    public static final int DATABASE_VERSION = 3; // Увеличьте версию!
+    public static final String TABLE_USERS = "users";
+    public static final String COLUMN_ID = "id";
+    public static final String COLUMN_USERNAME = "username";
+    public static final String COLUMN_EMAIL = "email";
+    public static final String COLUMN_PASSWORD = "password";
 
     public static final String TABLE_FAVORITES = "favorites";
     public static final String COLUMN_CAR_ID = "car_id";
@@ -27,18 +27,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        logTableStructure(); // Добавьте эту строку
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createTable = "CREATE TABLE " + TABLE_USERS + " (" +
+        String createUsersTable = "CREATE TABLE " + TABLE_USERS + " (" +
                 COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_USERNAME + " TEXT, " +
                 COLUMN_EMAIL + " TEXT, " +
-                COLUMN_PASSWORD + " TEXT)";
-        db.execSQL(createTable);
+                COLUMN_PASSWORD + " TEXT);";
 
-
+        // 2. Таблица избранного
         String createFavoritesTable = "CREATE TABLE " + TABLE_FAVORITES + " (" +
                 COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_CAR_ID + " TEXT, " +
@@ -47,8 +47,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_CAR_DATA + " TEXT, " +
                 COLUMN_USER_ID + " INTEGER, " +
                 "FOREIGN KEY(" + COLUMN_USER_ID + ") REFERENCES " +
-                TABLE_USERS + "(" + COLUMN_ID + "))";
+                TABLE_USERS + "(" + COLUMN_ID + "));";
+
+        db.execSQL(createUsersTable);
         db.execSQL(createFavoritesTable);
+
+
+
     }
 
     @Override
@@ -145,6 +150,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         boolean exists = (cursor.getCount() > 0);
         cursor.close();
         return exists;
+    }
+    public void logTableStructure() {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("PRAGMA table_info(" + TABLE_FAVORITES + ")", null);
+
+        Log.d("DB_DEBUG", "Структура таблицы " + TABLE_FAVORITES + ":");
+        while (cursor.moveToNext()) {
+            String name = cursor.getString(1); // имя колонки
+            String type = cursor.getString(2); // тип данных
+            Log.d("DB_DEBUG", name + " (" + type + ")");
+        }
+        cursor.close();
     }
 }
 
