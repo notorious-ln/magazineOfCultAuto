@@ -1,29 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
     android:padding="8dp">
 
+    <!-- Изображение футболки слева -->
     <ImageView
-        android:id="@+id/carImage"
+        android:id="@+id/itemImage"
         android:layout_width="80dp"
-        android:layout_height="60dp"
+        android:layout_height="80dp"
         android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+         />
 
-    <TextView
-        android:id="@+id/carName"
+    <!-- Контейнер для названия и цены -->
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@id/carImage"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/carImage"
-        app:layout_constraintTop_toTopOf="@id/carImage"/>
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/itemName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Название футболки"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/itemPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0.00"
+            android:textSize="14sp" />
+        <TextView
+            android:id="@+id/itemSize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Размер: M"
+            android:layout_marginTop="4dp"/>
+    </LinearLayout>
+
+    <!-- Кнопка удаления с анимацией -->
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/deleteButton"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_gravity="center_vertical"
+        app:lottie_rawRes="@raw/trashbag_animation"
+        app:lottie_autoPlay="false"
+        app:lottie_loop="false" />
+</LinearLayout>

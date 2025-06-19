@@ -1,13 +1,13 @@
-plugins {
+    plugins {
     alias(libs.plugins.android.application)
 }
 
 android {
-    namespace = "com.example.magazineofcultauto"
+    namespace = "com.example.ShopOfSportClothes"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.magazineofcultauto"
+        applicationId = "com.example.ShopOfSportClothes"
         minSdk = 24
         targetSdk = 35
         versionCode = 1
@@ -38,6 +38,7 @@ dependencies {
 
     implementation(libs.appcompat)
     implementation(libs.material)
+
     implementation(libs.activity)
     implementation(libs.constraintlayout)
     implementation(libs.lifecycle.livedata.ktx)
@@ -49,4 +50,5 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
     implementation(libs.glide)
     annotationProcessor(libs.glide.compiler)  // Для Java
+    implementation(libs.lottie) // Добавляем Lottie
 }

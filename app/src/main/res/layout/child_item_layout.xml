@@ -19,9 +19,9 @@ android:paddingBottom="8dp">
         android:textSize="16sp"
         tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
-<androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/recyclerGrandchildren"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:visibility="gone" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerGrandchildren"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible" />
 </LinearLayout>

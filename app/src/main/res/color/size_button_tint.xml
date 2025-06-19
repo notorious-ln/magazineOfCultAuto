@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Состояние, когда кнопка выбрана -->
+    <item android:state_selected="true" android:color="#40E0D0" /> <!-- Базовый цвет -->
+    <!-- Обычное состояние (не выбрано) -->
+    <item android:color="@android:color/transparent" /> <!-- Прозрачный фон -->
+</selector>

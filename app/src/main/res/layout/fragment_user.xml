@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@drawable/bg_gradient"
     android:layout_height="match_parent"
     tools:context=".ui.user.UserFragment"
 
@@ -26,41 +27,72 @@
             android:minHeight="400dp"
             android:padding="16dp">
 
+            <!-- Существующие элементы -->
+
             <Button
                 android:id="@+id/log"
                 style="@style/CustomButtonStyle"
-                android:layout_width="0dp"
-                android:layout_height="60dp"
+                android:layout_width="185dp"
+                android:layout_height="71dp"
+                android:layout_marginTop="32dp"
                 android:layout_marginEnd="8dp"
+                android:background="@drawable/gradient_background"
                 android:minWidth="120dp"
-                android:textAllCaps="false"
-                android:background="@color/бежевый"
                 android:text="Войти"
+                android:textAllCaps="false"
                 app:layout_constraintEnd_toStartOf="@+id/reg"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView"
-                app:layout_constraintWidth_percent="0.45"/>
+                app:layout_constraintWidth_percent="0.45" />
 
             <Button
                 android:id="@+id/reg"
                 style="@style/CustomButtonStyle"
-                android:text="Зарегистрироваться"
-                android:layout_width="0dp"
-                android:textAllCaps="false"
-                android:layout_height="60dp"
+                android:layout_width="185dp"
+                android:layout_height="71dp"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/gradient_background"
                 android:minWidth="150dp"
-                android:background="@color/бежевый"
+                android:text="Зарегистрироваться"
+                android:textAllCaps="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/log"
                 app:layout_constraintTop_toBottomOf="@+id/imageView"
-                app:layout_constraintWidth_percent="0.45"/>
+                app:layout_constraintWidth_percent="0.45" />
+
+            <!-- Новые элементы для авторизованного состояния -->
+
+            <TextView
+                android:id="@+id/tvWelcome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:textSize="18sp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+            <Button
+                android:id="@+id/btnLogout"
+                style="@style/CustomButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/бежевый"
+                android:text="Выйти"
+                android:textAllCaps="false"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvWelcome" />
 
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="106dp"
                 android:layout_height="99dp"
-                android:layout_marginTop="92dp"
+                android:layout_marginTop="104dp"
                 android:src="@drawable/userfontawesome"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"

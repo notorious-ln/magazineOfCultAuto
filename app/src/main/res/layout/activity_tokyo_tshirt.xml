@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:background="@drawable/bg_gradient"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Добавьте элементы интерфейса, аналогичные los_angeles_Tshirt -->
+
+    <Button
+        android:id="@+id/toFav"
+        style="@style/CustomButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="28dp"
+        android:text="Перейти в избранное"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/favoriteButton"
+        style="@style/CustomButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="33dp"
+        android:layout_marginBottom="11dp"
+        android:text="Добавить в избранное"
+        app:layout_constraintBottom_toTopOf="@+id/toFav"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="104dp"
+        android:background="@android:color/transparent"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/toFav"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/sizeS"
+            style="@style/SizeButtonStyle"
+            android:text="S" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/sizeM"
+            style="@style/SizeButtonStyle"
+            android:text="M" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/sizeL"
+            style="@style/SizeButtonStyle"
+            android:text="L" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/sizeXL"
+            style="@style/SizeButtonStyle"
+            android:text="XL" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/sizeXXL"
+            style="@style/SizeButtonStyle"
+            android:text="XXL" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="291dp"
+        android:layout_height="368dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginBottom="1dp"
+        app:layout_constraintBottom_toTopOf="@+id/toFav"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/tokyo_tshirt" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

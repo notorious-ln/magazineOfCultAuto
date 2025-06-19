@@ -2,7 +2,7 @@
     <string name="app_name">magazineOfCultAuto</string>
     <string name="title_activity_home">HomeActivity</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
+    <string name="title_favourite">Favourite</string>
     <string name="title_notifications">Notifications</string>
     <string name="createlogin">Создайте логин</string>
     <string name="mail">Введите почту</string>
@@ -11,6 +11,7 @@
     <string name="buttonRegistration">Зарегистрироваться</string>
     <string name="enterlogin">Введите логин</string>
     <string name="enterpassword">Введите пароль</string>
+    <string name="item_image">Изображение</string>
     <string name="buttonLogin">Войти</string>
     <string name="notRegistrationYet">Еще не зарегистрировались? Нажмите для регистрации</string>
 
